@@ -1,0 +1,22 @@
+# Terraform Settings Block
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      #version = "~> 3.21" # Optional but recommended in production
+    }
+  }
+}
+
+# Provider Block
+provider "aws" {
+ # profile = "default" # AWS Credentials Profile configured on your local desktop terminal  $HOME/.aws/credentials 
+# for profile best practice is to assign IAM role rather than security token if we are using an EC2 linux based instance for terraform plan
+  region  = "us-east-1"
+
+
+# Resource Block
+resource "aws_instance" "ec2demo" {
+  ami           = "ami-05b10e08d247fb927" # Amazon Linux in us-east-1, 
+  instance_type = "t2.micro"
+}
