@@ -58,3 +58,14 @@ resource "aws_vpc_security_group_vpc_association" "ELB_SG" {
     vpc_id = aws_vpc.vpc_east1
 }
 
+resource "aws_instance" "myec2vm" {
+  ami = "ami-05b10e08d247fb927" 
+  instance_type = var.instance_type
+  user_data = file("/root/app1-install.sh")
+  key_name = var.aws_key
+  subnet_id = aws_subnet.sub-1a.id
+  vpc_security_group_ids = [var.ELB_SG ]
+  tags = {
+    "Name" = "EC2 Demo 2"
+  }
+}
